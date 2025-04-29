@@ -1,0 +1,102 @@
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.decomposition import TruncatedSVD
+from sklearn.metrics import mean_squared_error
+from sklearn.preprocessing import LabelEncoder
+
+# 1. Data Collection - Simulated Data
+np.random.seed(42)
+
+# Simulate User and Event IDs
+user_ids = np.arange(1, 101)  # 100 users
+event_ids = np.arange(1, 51)  # 50 events
+
+# Create a DataFrame for user-event interactions (Random interaction for simulation)
+data = []
+for user in user_ids:
+    num_interactions = np.random.randint(1, 6)  # Each user interacts with 1-5 events
+    interacted_events = np.random.choice(event_ids, num_interactions, replace=False)
+    for event in interacted_events:
+        data.append([user, event, 1])  # 1 means user interacted with the event
+
+# Convert to DataFrame
+interaction_df = pd.DataFrame(data, columns=["User_ID", "Event_ID", "Interacted"])
+
+# Simulate Event Metadata (for content-based filtering)
+event_metadata = {
+    'Event_ID': event_ids,
+    'Event_Type': np.random.choice(['Conference', 'Concert', 'Festival'], 50),
+    'Event_Genre': np.random.choice(['Tech', 'Music', 'Sports'], 50),
+    'Location': np.random.choice(['NYC', 'LA', 'SF', 'Chicago', 'Miami'], 50)
+}
+event_df = pd.DataFrame(event_metadata)
+
+# Show sample data
+print("Sample Interaction Data:\n", interaction_df.head())
+print("\nSample Event Metadata:\n", event_df.head())
+
+# 2. Data Preprocessing - Create User-Event Interaction Matrix
+interaction_matrix = interaction_df.pivot_table(index='User_ID', columns='Event_ID', values='Interacted', fill_value=0)
+
+# 3. Train-Test Split
+train_data, test_data = train_test_split(interaction_matrix, test_size=0.2, random_state=42)
+
+# 4. Model: Singular Value Decomposition (SVD) for Collaborative Filtering
+svd = TruncatedSVD(n_components=10, random_state=42)  # Reduce the dimensions to 10 components
+svd_matrix = svd.fit_transform(train_data)
+
+# Reconstruct the matrix to get the predicted interactions
+reconstructed_matrix = svd.inverse_transform(svd_matrix)
+
+# 5. Evaluate the Model: Mean Squared Error
+# Predicting the test data (for example, user interactions)
+predictions = reconstructed_matrix[test_data.index, test_data.columns]
+
+# Calculate the error (e.g., using Mean Squared Error)
+mse = mean_squared_error(test_data.values, predictions)
+print(f'Mean Squared Error: {mse}')
+
+# 6. Make Predictions for a New User
+def recommend_events(user_id, interaction_matrix, svd, n_recommendations=5):
+    """
+    Recommend events for a user based on past interactions and model predictions.
+    """
+    user_idx = interaction_matrix.index.get_loc(user_id)  # Get the index of the user
+    predicted_scores = svd.inverse_transform(svd.transform(interaction_matrix))[user_idx]
+    
+    # Get the event indices that the user hasn't interacted with yet
+    already_interacted = interaction_matrix.loc[user_id] > 0
+    recommended_events = np.argsort(predicted_scores)[~already_interacted]  # Sort predicted scores for not interacted events
+    
+    # Return top 'n' recommendations
+    return recommended_events[:n_recommendations]
+
+# Example: Get event recommendations for User 1
+recommended_events = recommend_events(user_id=1, interaction_matrix=interaction_matrix, svd=svd, n_recommendations=5)
+print(f"\nRecommended Events for User 1: {recommended_events}")
+
+# 7. Content-Based Filtering: Combining with Event Metadata (Optional)
+def content_based_recommendation(user_id, interaction_matrix, event_df, n_recommendations=5):
+    """
+    Recommend events to a user based on event metadata and interaction history.
+    """
+    user_interactions = interaction_matrix.loc[user_id]
+    interacted_events = user_interactions[user_interactions > 0].index.tolist()  # Events user has interacted with
+    
+    # Get event genres and types
+    event_info = event_df[event_df['Event_ID'].isin(interacted_events)].drop_duplicates(subset=['Event_Genre', 'Event_Type'])
+    
+    # Suggest events of the same genre/type that the user hasn't interacted with yet
+    candidate_events = event_df[~event_df['Event_ID'].isin(interacted_events)]
+    candidate_events = candidate_events[
+        candidate_events['Event_Genre'].isin(event_info['Event_Genre']) |
+        candidate_events['Event_Type'].isin(event_info['Event_Type'])
+    ]
+    
+    # Return top 'n' recommendations based on candidate events
+    return candidate_events['Event_ID'].head(n_recommendations).tolist()
+
+# Example: Get content-based event recommendations for User 1
+content_based_recs = content_based_recommendation(user_id=1, interaction_matrix=interaction_matrix, event_df=event_df, n_recommendations=5)
+print(f"\nContent-Based Recommended Events for User 1: {content_based_recs}")
