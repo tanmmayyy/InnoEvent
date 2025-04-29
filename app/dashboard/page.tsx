@@ -22,7 +22,7 @@ export default function DashboardPage() {
       <div className="mb-8 flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold tracking-tight mb-2">Dashboard</h1>
-          <p className="text-muted-foreground">Welcome back to your Ticketify dashboard</p>
+          <p className="text-muted-foreground">Welcome back to your InnoEvent dashboard</p>
         </div>
         <Button asChild>
           <Link href="/create-event">Create Event</Link>

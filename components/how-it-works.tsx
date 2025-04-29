@@ -5,7 +5,7 @@ export default function HowItWorks() {
     <section id="how-it-works" className="py-20 bg-muted/30">
       <div className="container">
         <div className="mx-auto mb-12 max-w-3xl text-center">
-          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">How Ticketify Works</h2>
+          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">How InnoEvent Works</h2>
           <p className="mt-4 text-xl text-muted-foreground">
             Our platform makes it easy to create, sell, and collect NFT tickets
           </p>

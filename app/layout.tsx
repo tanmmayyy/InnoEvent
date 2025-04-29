@@ -9,7 +9,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Ticketify - NFT Ticketing Platform",
+  title: "InnoEvent - NFT Ticketing Platform",
   description: "Create, sell, and collect verifiable NFT tickets for your events",
     generator: 'v0.dev'
 }

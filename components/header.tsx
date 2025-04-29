@@ -41,7 +41,7 @@ export default function Header() {
         <div className="flex items-center gap-2">
           <Link href="/" className="flex items-center gap-2">
             <Ticket className="h-6 w-6 text-primary" />
-            <span className="text-xl font-bold">Ticketify</span>
+            <span className="text-xl font-bold">InnoEvent</span>
           </Link>
         </div>
 

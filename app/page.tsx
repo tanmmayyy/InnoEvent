@@ -93,7 +93,7 @@ export default function Home() {
         <div className="container">
           <div className="mx-auto mb-12 max-w-3xl text-center">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-              Why Choose <span className="text-primary">Ticketify</span>
+              Why Choose <span className="text-primary">InnoEvent</span>
             </h2>
             <p className="mt-4 text-xl text-muted-foreground">
               Our platform offers unique advantages for both event organizers and attendees

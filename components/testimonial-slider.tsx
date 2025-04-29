@@ -9,7 +9,7 @@ const testimonials = [
   {
     id: 1,
     quote:
-      "Ticketify transformed how we handle event ticketing. The NFT tickets added a new revenue stream through royalties from resales, and our attendees love the collectible aspect.",
+      "InnoEvent transformed how we handle event ticketing. The NFT tickets added a new revenue stream through royalties from resales, and our attendees love the collectible aspect.",
     name: "Sarah Johnson",
     title: "Festival Director, SoundWave Music Festival",
     avatar: "/music.jpg?height=100&width=100",
@@ -17,7 +17,7 @@ const testimonials = [
   {
     id: 2,
     quote:
-      "As a concert promoter, I've dealt with counterfeit tickets for years. With Ticketify's NFT tickets, that problem disappeared overnight. The verification process is seamless.",
+      "As a concert promoter, I've dealt with counterfeit tickets for years. With InnoEvent's NFT tickets, that problem disappeared overnight. The verification process is seamless.",
     name: "Michael Chen",
     title: "CEO, Global Concert Productions",
     avatar: "/nft2.jpeg?height=100&width=100",
@@ -60,7 +60,7 @@ export default function TestimonialSlider() {
         <div className="mx-auto max-w-4xl">
           <div className="mb-12 text-center">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">What Our Users Say</h2>
-            <p className="mt-4 text-muted-foreground">Hear from event organizers and attendees who use Ticketify</p>
+            <p className="mt-4 text-muted-foreground">Hear from event organizers and attendees who use InnoEvent</p>
           </div>
 
           <div

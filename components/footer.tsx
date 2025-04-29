@@ -9,7 +9,7 @@ export default function Footer() {
           <div>
             <div className="flex items-center gap-2 mb-4">
               <Ticket className="h-6 w-6 text-primary" />
-              <span className="text-xl font-bold">Ticketify</span>
+              <span className="text-xl font-bold">InnoEvent</span>
             </div>
             <p className="text-sm text-muted-foreground">
               Revolutionizing event ticketing with blockchain technology and NFTs.
@@ -87,7 +87,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="mt-12 border-t pt-6 text-center text-sm text-muted-foreground">
-          <p>© {new Date().getFullYear()} Ticketify. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} InnoEvent. All rights reserved.</p>
         </div>
       </div>
     </footer>
