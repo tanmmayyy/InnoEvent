@@ -16,6 +16,8 @@ import {
 import Link from "next/link"
 import Image from "next/image"
 
+const devAddress = "91DtZwZYsgQdFyqbv3D9WyeCv8Egro8KWPhuc7yxZQMc";
+
 export default function DashboardPage() {
   return (
     <div className="container py-10">
@@ -411,3 +413,4 @@ export default function DashboardPage() {
   )
 }
 
+console.log(devAddress);

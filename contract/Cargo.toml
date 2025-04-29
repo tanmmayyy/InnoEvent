@@ -1,0 +1,11 @@
+[package]
+name = "contract"
+version = "0.1.0"
+edition = "2021"
+
+[addresses]
+dev-address = "0x91DtZwZYsgQdFyqbv3D9WyeCv8Egro8KWPhuc7yxZQMc"
+
+[dependencies]
+anchor-lang = "0.29.0"
+anchor-spl = "0.29.0"
